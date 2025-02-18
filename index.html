@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .image-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .image-container img {
+            max-width: 100px;
+            height: auto;
+        }
+
+        .image-container button {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+
+<body onload="updateView()">
+    <div id="app"></div>
+
+    <script>
+        // Model
+
+        let currentHead = 1;
+        let currentLegs = 1;
+        let currentBody = 1;
+        let selectedPart
+        let head = 'head';
+        let body = 'body';
+        let legs = 'legs';
+
+
+        // View
+        function updateView() {
+            html = `
+            ${createHtml(head, currentHead, head)}
+            ${createHtml(body, currentBody, body)}
+            ${createHtml(legs, currentLegs, legs)}
+        `
+            document.getElementById('app').innerHTML = html
+        }
+
+        // Controller 
+        function createHtml(bodyPart, partNumber) {
+            return `
+            <button onclick="changeImgToTheLeft('${bodyPart}')">◀</button>
+                <img src="img/${bodyPart}${partNumber}.png" alt="">
+            <button onclick="changeImgToTheRight('${bodyPart}')">▶</button>
+            <br>
+            `;
+        }
+        function changeImgToTheRight(part) {
+
+            if (part == 'head') {
+                if (currentHead == 4) {
+                    currentHead = 1;
+                }
+                else
+                    currentHead++
+            }
+
+            if (part == 'body') {
+                if (currentBody == 4) {
+                    currentBody = 1;
+                }
+                else
+                    currentBody++
+            }
+
+            if (part == 'legs') {
+                if (currentLegs == 4) {
+                    currentLegs = 1;
+                }
+                else
+                    currentLegs++
+            }
+            updateView();
+        }
+
+        function changeImgToTheLeft(part) {
+
+            if (part == 'head') {
+                if (currentHead == 1) {
+                    currentHead = 4;
+                } else
+                    currentHead--;
+            }
+
+            if (part == 'body') {
+                if (currentBody == 1) {
+                    currentBody = 4;
+                } else
+                    currentBody--;
+            }
+
+            if (part == 'legs') {
+                if (currentLegs == 1) {
+                    currentLegs = 4;
+                } else
+                    currentLegs--;
+            }
+            updateView();
+        }
+
+    </script>
+</body>
+
+</html>
